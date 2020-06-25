@@ -1,4 +1,6 @@
+/* eslint-disable no-eval */
 import React, { useState } from 'react';
+import { v4 as uuid_v4 } from 'uuid';
 
 import Button from './Button.js';
 
@@ -7,29 +9,28 @@ import '../styles/Calculator.css';
 const Calculator = () => {
 	const [ inputString, setInputString ] = useState('');
 
-	const handleChange = (evt) => {
-		setInputString(evt.target.value);
-	};
-
 	const clearInputField = () => {
 		setInputString('');
 	};
 
 	const addSymbol = (symbol) => {
-		setInputString(inputString + ' ' + symbol);
+		setInputString(inputString + symbol);
 	};
 
 	const evaluateExpression = () => {
-		// eslint-disable-next-line no-eval
-		setInputString(eval(inputString));
+		try {
+			setInputString(eval(inputString));
+		} catch (err) {
+			console.error('error occured while using eval()', err);
+		}
 	};
 
-	const symbols = [ 'C', '/', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '=' ];
+	const symbols = [ 'C', '/', '*', '9', '8', '+', '-', '7', '6', '5', '4', '3', '2', '1', '0', '.', '=' ];
 	const specialOperations = { C: clearInputField, '=': evaluateExpression };
 
 	return (
 		<div className='calculator'>
-			<input id='input-field' disabled type='text' onChange={handleChange} value={inputString} />
+			<input id='input-field' disabled type='text' value={inputString.toString()} />
 			<div className='buttons'>
 				{symbols.map((symbol) => {
 					let action, optionalStyle;
@@ -37,9 +38,10 @@ const Calculator = () => {
 					if (symbol in specialOperations) {
 						action = specialOperations[symbol];
 						if (symbol === 'C') optionalStyle = 'span-two-col';
+						else if (symbol === '=') optionalStyle = 'span-three-col';
 					} else action = addSymbol;
 
-					return <Button symbol={symbol} action={action} optionalStyle={optionalStyle} />;
+					return <Button symbol={symbol} action={action} optionalStyle={optionalStyle} key={uuid_v4()} />;
 				})}
 			</div>
 		</div>

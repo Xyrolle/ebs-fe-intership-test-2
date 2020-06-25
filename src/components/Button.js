@@ -3,7 +3,12 @@ import React from 'react';
 const Button = ({ symbol, action, optionalStyle }) => {
 	return (
 		<span
-			className={`button ${optionalStyle}`}
+			className={
+				'button ' +
+				(
+					optionalStyle ? optionalStyle :
+					'')
+			}
 			onClick={() => {
 				action(symbol);
 			}}
