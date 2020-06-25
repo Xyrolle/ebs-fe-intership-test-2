@@ -1,0 +1,39 @@
+#input-field {
+	grid-column: span 4;
+	height: 100px;
+	padding: 10px;
+	font-size: 2rem;
+	background-color: #222831;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: none;
+	outline: none;
+	text-align: right;
+	color: #eeeeee;
+}
+
+.calculator {
+	display: grid;
+	position: relative;
+}
+
+.calculator span {
+	display: grid;
+	width: 100px;
+	height: 100px;
+	color: #eeeeee;
+	background-color: #393e46;
+	place-items: center;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+	display: grid;
+	align-content: center;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.calculator .span-two-col {
+	grid-column: span 3;
+	width: 300px;
+	background-color: #ff3077;
+}
