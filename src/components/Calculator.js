@@ -14,14 +14,16 @@ const Calculator = () => {
 	};
 
 	const addSymbol = (symbol) => {
-		setInputString(inputString + symbol);
+		if (inputString === 'Error') setInputString(symbol);
+		else setInputString(inputString + symbol);
 	};
 
 	const evaluateExpression = () => {
 		try {
 			setInputString(eval(inputString));
 		} catch (err) {
-			console.error('error occured while using eval()', err);
+			setInputString('Error');
+			console.error('error occured while using eval()');
 		}
 	};
 
